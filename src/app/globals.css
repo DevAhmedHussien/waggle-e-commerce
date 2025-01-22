@@ -1,21 +1,34 @@
+/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+  :root {
+    --background: 0 0% 10%; /* Black */
+    --foreground: 210 25% 96%; /* Light gray */
+    --card: 0 0% 15%; /* Darker gray for cards */
+    --card-foreground: 210 25% 96%; /* Light gray for text in cards */
+    --popover: 0 0% 15%;
+    --popover-foreground: 210 25% 96%;
+    --primary: 220 90% 56%; /* Bright blue for primary elements */
+    --primary-foreground: 0 0% 10%; /* Black for text on primary buttons */
+    --secondary: 220 60% 70%; /* Soft blue for accents */
+    --secondary-foreground: 0 0% 10%; /* Black for text on secondary buttons */
+    --muted: 220 20% 20%; /* Muted gray */
+    --muted-foreground: 210 25% 96%; /* Light gray for muted text */
+    --accent: 220 70% 50%; /* Accent blue */
+    --accent-foreground: 0 0% 10%; /* Black for text on accents */
+    --destructive: 0 84.2% 60.2%; /* Red for destructive actions */
+    --destructive-foreground: 210 40% 98%; /* Light text for destructive buttons */
+    --border: 0 0% 25%; /* Subtle border color */
+    --input: 0 0% 25%; /* Input background */
+    --ring: 220 90% 56%; /* Focus rings in blue */
+    --radius: 0.5rem;
+  }
+@layer base {
+
+}
+
