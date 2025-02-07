@@ -73,8 +73,8 @@ const Cart = ({ toggleCart, isCartOpen }) => {
         ) : (
           // Display cart items if cart is not empty
           <div>
-            {cart.items.map((item) => (
-            <ProductCart key={item.id} item={item} 
+            {cart.items.map((item ,index) => (
+            <ProductCart key={index} item={item} 
             handleUpdateQuantity={handleUpdateQuantity}
             handleRemoveItem={handleRemoveItem}
             />
@@ -86,33 +86,31 @@ const Cart = ({ toggleCart, isCartOpen }) => {
               <p className="font-semibold">Total Price: ${cart.totalPrice}</p>
             </div>
 
+            <div className=''>
             {/* Clear Cart Button */}
             <button
-              onClick={handleClearCart}
-              className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
-            >
-              Clear Cart
-            </button>
-
-            {/* Proceed Button */}
-            
-            <button
-                disabled={cart.length === 0 || isLoading}
-                onClick={handleProceedToCheckout}
-                className="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center gap-2"
+                onClick={handleClearCart}
+                className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
               >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" /> Processing...
-                  </>
-                ) : (
-                  <>
-                    <ShoppingCart className="w-5 h-5" /> Proceed to Checkout
-                  </>
-                )}
+                Clear Cart
               </button>
-
-            
+                {/* Proceed Button */}  
+              <button
+                  disabled={cart.length === 0 || isLoading}
+                  onClick={handleProceedToCheckout}
+                  className="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center gap-2"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" /> Processing...
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="w-5 h-5" /> Proceed to Checkout
+                    </>
+                  )}
+              </button>
+            </div>      
           </div>
         )}
       </div>

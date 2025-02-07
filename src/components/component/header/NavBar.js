@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import {  Menu } from 'lucide-react';
+import {  Menu ,ChevronDown , ChevronUpIcon, ChevronUp} from 'lucide-react';
 import Link from 'next/link';
 import Cart from './Cart';
 import MenuOpen from './MenuOpen';
 import SearchProduct from './SearchProduct';
-import ReduxProvider from '@/app/ReduxProvider';
 import { usePathname } from 'next/navigation';
+import ReduxProvider from '@/redux/ReduxProvider';
 
 export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -48,6 +48,7 @@ export default function Navbar() {
     console.log('Searching for:', searchQuery);
   };
 
+
   const pathname = usePathname(); // Get the current route
 
   // Hide Navbar on auth and checkout pages
@@ -76,27 +77,32 @@ export default function Navbar() {
               </button>
 
               {/* Navigation Links */}
-              {/* ${isMenuOpen ? 'hidden' : 'hidden'} */}
               <nav className={`md:flex items-center space-x-6 hidden p-[30px]`}>
                 <ul className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
                   {links.map((link, index) => (
                     <li key={index}>
-                      <div className="flex items-center gap-1">
-                        <Link href={link.link} className="text-gray-800 hover:text-blue-500">
+                    {link.name === 'products' ? (
+                      <button
+                          onMouseEnter={() => setIsSubLinksVisible(true)}
+                          onMouseLeave={() => setIsSubLinksVisible(false)}
+                          className=" text-gray-800 flex  justify-center items-center gap-2 hover:text-blue-500"
+                          aria-label="Toggle sub-links"
+                          >
+                          <Link href={link.link} >
                           {link.name}
                         </Link>
-                        {link.name === 'products' && (
-                          <button
-                            onClick={toggleSubLinks}
-                            className="text-gray-800 hover:text-blue-500"
-                            aria-label="Toggle sub-links"
-                          >
-                            {isSubLinksVisible ? '▲' : '▼'} {/* Replace with icons if needed */}
+                        {isSubLinksVisible ? <ChevronUp size={16} /> : <ChevronDown size={16} />} {/* Replace with icons if needed */}
                           </button>
-                        )}
-                      </div>
+                        ):
+                          <Link href={link.link} className=' hover:text-blue-500'>
+                          {link.name}
+                        </Link>
+                        }
                       {link.name === 'products' && isSubLinksVisible && (
-                        <ul className="absolute bg-white shadow-md mt-2 py-2 rounded-lg transition-opacity duration-300">
+                        <ul  
+                        onMouseEnter={() => setIsSubLinksVisible(true)}
+                        onMouseLeave={() => setIsSubLinksVisible(false)}
+                        className="absolute left-0 w-[100%] p-20 bg-white shadow-lg rounded-lg ">
                           {subLinks.map((subLink, subIndex) => (
                             <li key={subIndex}>
                               <Link

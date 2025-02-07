@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { validateEmail, validateFirstName, validateLastName, validatePassword, validateTelephone } from '@/constants/utils';
+import Input from '@/components/ui/input';
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState('');
@@ -8,14 +10,27 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({email : '' , password :'', firstName : '' , lastName :'' , telephone:''})
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('Email:', email);
-    console.log('Telephone:', telephone);
-    console.log('Password:', password);
+
+    const firstNameError = validateFirstName(firstName);
+    const lastNameError = validateLastName(lastName);
+    const telephoneError = validateTelephone(telephone);
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+
+    if (firstNameError || lastNameError || telephoneError  || emailError || passwordError) {
+      setErrors({ email: emailError, password: passwordError });
+      return;
+    }
+
+    // Clear errors and proceed with login
+    setErrors({});
+    console.log('Login attempt:', { email, password ,firstNameError,lastNameError, telephoneError, });
     // Add your registration logic here (e.g., API call to create a new user)
   };
 
@@ -24,76 +39,61 @@ export default function RegisterPage() {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Register</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-              First Name
-            </label>
-            <input
-              type="text"
-              id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your first name"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-              Last Name
-            </label>
-            <input
-              type="text"
-              id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your last name"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="telephone" className="block text-sm font-medium text-gray-700">
-              Telephone
-            </label>
-            <input
+          <Input
+            label='First Name'
+            type="text"
+            id="firstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            onBlur={() => setErrors({ ...errors, firstName: validateFirstName(firstName) })}
+            error={errors.firstName}
+            placeholder="Enter your email"
+            required
+          />
+          <Input
+            label='Last Name'
+            type="text"
+            id="lastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            onBlur={() => setErrors({ ...errors, lastName: validateLastName(lastName) })}
+            error={errors.lastName}
+            placeholder="Enter your email"
+            required
+          />
+          <Input
+            label='Email'
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setErrors({ ...errors, email: validateEmail(email) })}
+            error={errors.email}
+            placeholder="Enter your email"
+            required
+          />
+          <Input 
+              label='Telephone'
               type="tel"
               id="telephone"
               value={telephone}
               onChange={(e) => setTelephone(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your telephone number"
+              onBlur={() => setErrors({ ...errors, telephone: validateTelephone(telephone) })}
+              placeholder="Enter your password"
               required
+              error={errors.telephone}
             />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
+          <Input 
+              label='Password'
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onBlur={() => setErrors({ ...errors, password: validatePassword(password) })}
               placeholder="Enter your password"
               required
+              error={errors.password}
             />
-          </div>
           <div>
             <button
               type="submit"

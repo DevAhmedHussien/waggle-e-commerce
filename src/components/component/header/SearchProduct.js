@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation'; 
 import { ShoppingCart, Search, X, UserRound } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import Input from '@/components/ui/input';
 
 const SearchProduct = ({ searchQuery, setSearchQuery, toggleSearch, toggleCart, isSearchOpen }) => {
   
@@ -40,13 +41,22 @@ const SearchProduct = ({ searchQuery, setSearchQuery, toggleSearch, toggleCart, 
           }`}
         >
           <form onSubmit={handleSearchProp} className="flex items-center">
-            <input
+          <Input
+            // label='Email'
+            type="text"
+            id="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+           placeholder="Search..."
+          />
+            {/* <input
               type="text"
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            /> */}
+            
           </form>
         </div>
 
@@ -82,7 +92,7 @@ const SearchProduct = ({ searchQuery, setSearchQuery, toggleSearch, toggleCart, 
           {/* Cart Item Count Badge */}
           {cart.items.length > 0 && (
             <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full px-1.5 py-0.5">
-              {cart.items.length}
+              {cart.totalQuantity}
             </span>
           )}
         </button>

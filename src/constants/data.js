@@ -10,6 +10,17 @@ const sizesForTshirt = ['sm', 'xs', 'm', 'lg', 'xl', 'xxl'];
 const sizesForShoes = ['41', '42', '43', '44', '45', '46'];
 const sizesForJeans = ['46', '48', '50', '52', '54', '56'];
 
+// categories 
+export const categories = ['products', 'Hoodies', 'Shirts', 'Jeans'];
+
+export  const links = [
+  { name: 'Products', link: '/products' },
+  { name: 'About', link: '/about' },
+  { name: 'Contact', link: '/contact' },
+];
+
+export const subLinks = ['Shirts', 'Jeans', 'Hoodies', 'Jacket'];
+
 // Helper function to generate unique IDs
 let productIdCounter = 1;
 

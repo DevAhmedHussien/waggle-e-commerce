@@ -1,69 +1,89 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { validateEmail, validatePassword } from '@/constants/utils';
+import Input from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({email : '' , password :''})
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Add your login logic here (e.g., API call to authenticate user)
-  };
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    if (emailError || passwordError) {
+      setErrors({ email: emailError, password: passwordError });
+      return;
+    }
+
+    // Clear errors and proceed with login
+    setErrors({});
+    console.log('Login attempt:', { email, password });
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
+
+          <Input
+            label='Email'
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setErrors({ ...errors, email: validateEmail(email) })}
+            error={errors.email}
+            placeholder="Enter your email"
+            required
+          />
+            <Input 
+              label='Password'
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onBlur={() => setErrors({ ...errors, password: validatePassword(password) })}
               placeholder="Enter your password"
               required
+              error={errors.password}
             />
-          </div>
           <div>
+              <Button  type="submit"  size='md' variant="primary"> 
+                <Link href='/'> Login</Link>
+              </Button> 
+            {/* <Button variant="secondary">Sign Up</Button>
+
+            <Button variant="outline">More Info</Button>
+            <Button variant="destructive">Delete</Button>
+            <Button variant="ghost">Skip</Button>
+            <Button variant="line">Learn More</Button> */}
             <button
               // type="submit"
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className=""
             >
              
-              <Link href='/'> Login
-              </Link>
             </button>
           </div>
         </form>
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Do not have an account?{' '}
-            <Link href="/register" className="text-blue-500 hover:text-blue-600">
+            <Link href="/register"
+            // className="text-blue-500 hover:text-blue-600"
+            className='responsive-appbar-button'
+            
+            >
               Register here
             </Link>
           </p>
+
           <p className="text-sm text-gray-600 mt-2">
             Forgot your password?{' '}
             <Link href="/forgot-password" className="text-blue-500 hover:text-blue-600">
