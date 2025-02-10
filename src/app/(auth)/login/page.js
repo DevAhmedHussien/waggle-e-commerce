@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { validateEmail, validatePassword } from '@/constants/utils';
 import Input from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({email : '' , password :''})
-
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ export default function LoginPage() {
     // Clear errors and proceed with login
     setErrors({});
     console.log('Login attempt:', { email, password });
+    router.push('/')
   }
 
   return (
@@ -31,7 +33,6 @@ export default function LoginPage() {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-
           <Input
             label='Email'
             type="email"
@@ -55,21 +56,18 @@ export default function LoginPage() {
               error={errors.password}
             />
           <div>
-              <Button  type="submit"  size='md' variant="primary"> 
-                <Link href='/'> Login</Link>
+             <Button 
+              type="submit" 
+              size='md'
+              variant="primary">  
+                Login
               </Button> 
-            {/* <Button variant="secondary">Sign Up</Button>
-
-            <Button variant="outline">More Info</Button>
-            <Button variant="destructive">Delete</Button>
-            <Button variant="ghost">Skip</Button>
-            <Button variant="line">Learn More</Button> */}
-            <button
-              // type="submit"
-              className=""
-            >
-             
-            </button>
+              {/* <Button variant="secondary">Sign Up</Button>
+              <Button variant="outline">More Info</Button>
+              <Button variant="destructive">Delete</Button>
+              <Button variant="ghost">Skip</Button>
+              <Button variant="line">Learn More</Button> */}
+        
           </div>
         </form>
         <div className="mt-6 text-center">

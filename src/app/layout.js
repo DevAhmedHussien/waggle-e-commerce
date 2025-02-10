@@ -1,12 +1,11 @@
-// app/layout.js
-import { Roboto } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/component/header/NavBar";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/layout/footer/Footer";
+import Navbar from "@/layout/header/NavBar";
 // import NavigationMenuDemo from "@/components/component/header/NavigationMenuDemo";
 
-const roboto = Roboto({
+const roboto = Poppins({
   subsets: ["latin"],
   weight: ["400", "500"],
   preload: true,
@@ -22,8 +21,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
       {/* <NavigationMenuDemo/> */}
-        <Navbar />
-        <main>{children}</main>
+        <Navbar/>
+          <main>{children}</main>
         <Toaster/>
         <Footer />
       </body>

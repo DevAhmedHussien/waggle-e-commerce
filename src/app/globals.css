@@ -97,7 +97,7 @@ body {
   display: inline-block;
   overflow: hidden;
   text-transform: capitalize;
-color: var(--primary-color) ;
+  color: var(--primary-color) ;
 
 
 }

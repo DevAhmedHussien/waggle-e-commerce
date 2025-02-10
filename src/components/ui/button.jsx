@@ -9,17 +9,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:animate-pulse",
+          "w-full px-4 py-2 bg-primary-default text-white rounded-lg hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary-dark hover:animate-pulse",
         secondary:
-          "bg-gray-300 text-gray-900 shadow-md hover:bg-gray-400 hover:scale-105",
+          "bg-secondary-default text-white shadow-md hover:bg-secondary-hover hover:scale-105",
         outline:
-          "border border-gray-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-100 hover:border-gray-900 hover:shadow-md",
+          "border border-gray-400 text-textColor-dark px-4 py-2 rounded-lg hover:bg-background-hover hover:border-gray-900 hover:shadow-md",
         destructive:
-          "bg-red-500 text-white shadow-md hover:bg-red-600 hover:animate-shake",
+          "bg-errorColor-default text-white shadow-md hover:bg-errorColor-light hover:animate-shake",
         ghost:
-          "px-4 py-2 text-gray-900 hover:bg-gray-200 hover:opacity-80",
-        line: 
-          "relative text-gray-900 hover:text-blue-600 transition-all before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-full before:h-[2px] before:bg-blue-500 before:transition-all before:duration-300 before:translate-x-[-100%] hover:before:translate-x-0",
+          "px-4 py-2 text-textColor-dark hover:bg-background-hover hover:opacity-80",
+        line:
+          "relative text-textColor-dark hover:text-primary-default transition-all before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-full before:h-[2px] before:bg-primary-default before:transition-all before:duration-300 before:translate-x-[-100%] hover:before:translate-x-0",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -30,7 +30,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "line",
+      variant: "primary",
       size: "default",
     },
   }

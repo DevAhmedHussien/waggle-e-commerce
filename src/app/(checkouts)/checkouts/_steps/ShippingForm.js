@@ -1,89 +1,87 @@
-import Input from '@/components/ui/input'
-import { MapPin } from 'lucide-react'
-import React from 'react'
+import { Button } from '@/components/ui/button';
+import Input from '@/components/ui/input';
+import { MapPin, CreditCard } from 'lucide-react'; 
 
-const ShippingForm = ({handleShippingSubmit, shipping, setShipping}) => {
+const ShippingForm = ({ handleShippingSubmit, shipping, setShipping }) => {
   return (
-    <form onSubmit={handleShippingSubmit} className="bg-white p-6 rounded-lg shadow-md">
-    <h2 className="text-xl font-bold mb-4 flex items-center">
-      <MapPin className="w-5 h-5 mr-2" /> Shipping Address
-    </h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <Input
-      label='Country/Region'
-      type="text"
-      id="region"
-      value={shipping.country}
-      onChange={(e) => setShipping({ ...shipping, country: e.target.value })}
-    //   onBlur={() => setErrors({ ...errors, email: validateEmail(contact.email) })}
-    //   error={errors.email}
-      placeholder="United States"
-      required
-    />
-    
-      <div>
-        <label className="block mb-2 text-sm font-medium">Address</label>
-        <input
-          type="text"
-          value={shipping.address}
-          onChange={(e) => setShipping({ ...shipping, address: e.target.value })}
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Address"
-          required
-        />
-      </div>
-      <div>
-        <label className="block mb-2 text-sm font-medium">Apartment, suite, etc. (optional)</label>
-        <input
-          type="text"
-          value={shipping.apartment}
-          onChange={(e) => setShipping({ ...shipping, apartment: e.target.value })}
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Apartment"
-        />
-      </div>
-      <div>
-        <label className="block mb-2 text-sm font-medium">City</label>
-        <input
-          type="text"
-          value={shipping.city}
-          onChange={(e) => setShipping({ ...shipping, city: e.target.value })}
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="City"
-          required
-        />
-      </div>
-      <div>
-        <label className="block mb-2 text-sm font-medium">State</label>
-        <input
-          type="text"
-          value={shipping.state}
-          onChange={(e) => setShipping({ ...shipping, state: e.target.value })}
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="State"
-          required
-        />
-      </div>
-      <div>
-        <label className="block mb-2 text-sm font-medium">ZIP code</label>
-        <input
-          type="text"
-          value={shipping.zip}
-          onChange={(e) => setShipping({ ...shipping, zip: e.target.value })}
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="ZIP code"
-          required
-        />
-      </div>
-    </div>
-    <button
-      type="submit"
-      className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 mt-4"
-    >
-      Continue to Payment
-    </button>
-  </form>
-  )
-}
+    <form onSubmit={handleShippingSubmit} className="bg-background-light p-6 rounded-lg shadow-md">
+      
+      {/* Title */}
+      <h2 className="text-xl font-bold text-textColor-dark mb-4 flex items-center">
+        <MapPin className="w-5 h-5 mr-2 text-primary-default" /> Shipping Address
+      </h2>
 
-export default ShippingForm
+      {/* Input Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label="Country/Region"
+            type="text"
+            id="region"
+            value={shipping.country}
+            onChange={(e) => setShipping({ ...shipping, country: e.target.value })}
+            placeholder="United States"
+            required
+            className="pl-10"
+          />
+          <Input
+            label="Address"
+            type="text"
+            id="address"
+            value={shipping.address}
+            onChange={(e) => setShipping({ ...shipping, address: e.target.value })}
+            placeholder="Street address"
+            required
+            className="pl-10"
+          />
+          <Input
+            label="Apartment, suite, etc. (Optional)"
+            type="text"
+            id="apartment"
+            value={shipping.apartment}
+            onChange={(e) => setShipping({ ...shipping, apartment: e.target.value })}
+            placeholder="Apt, Suite, etc."
+            className="pl-10"
+          />
+          <Input
+            label="City"
+            type="text"
+            id="city"
+            value={shipping.city}
+            onChange={(e) => setShipping({ ...shipping, city: e.target.value })}
+            placeholder="City"
+            required
+            className="pl-10"
+          />
+          <Input
+            label="State"
+            type="text"
+            id="state"
+            value={shipping.state}
+            onChange={(e) => setShipping({ ...shipping, state: e.target.value })}
+            placeholder="State"
+            required
+            className="pl-10"
+          />
+
+          <Input
+            label="ZIP Code"
+            type="text"
+            id="zip"
+            value={shipping.zip}
+            onChange={(e) => setShipping({ ...shipping, zip: e.target.value })}
+            placeholder="ZIP Code"
+            required
+            className="pl-10"
+          />
+      </div>
+
+      {/* Continue Button */}
+      <Button type="submit" variant="primary" size="md" className=" mt-4">
+        <CreditCard size={20}/>Continue to Payment
+      </Button>
+      
+    </form>
+  );
+};
+
+export default ShippingForm;
